@@ -1,0 +1,17 @@
+Instagram Engineering Challenge: The Unshredder
+Author: Swarup Sahoo
+--------------------
+
+This is quick solution to the puzzle implemented using python 2.7.1. This solution works for most of the cases.
+
+
+The uploaded file description-
+
+shredder.py   - to shred an original image (Utility)
+unshredder.py - to generate the original image back from shredded image (Challenge)
+find_width.py - to calculate the width of the shredded piece (Bonus Challenge)
+TokyoPanorama.png         - Original image
+TokyoPanoramaShredded.png - Shredded image
+
+        --swarup
+
