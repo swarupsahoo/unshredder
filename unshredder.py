@@ -29,10 +29,12 @@ def get_delta_rgb(d1, d2):
     d = (abs(r1 - r2), abs(g1 - g2), abs(b1 - b2))
     return d
 
-
 order = {}
+# run through the shredded pieces
 for shred_index in range(0, NUMBER_OF_COLUMNS):
     match = [0] * NUMBER_OF_COLUMNS
+    # run through the left most pixels of current shred
+    # vs the right most pixels of all other shredded pieces
     for i in range(0, NUMBER_OF_COLUMNS):
         if i == shred_index:
             continue
@@ -41,16 +43,21 @@ for shred_index in range(0, NUMBER_OF_COLUMNS):
             d1 = get_pixel_value(32 * shred_index + 31, j)
             d2 = get_pixel_value(32 * i, j)
             d = get_delta_rgb(d1, d2)
+            # are the pixels deserve to be neighbours?
+            # if so then count 
             if d[0] < tolerance and d[1] < tolerance and d[2] < tolerance:
                 count += 1
+        # what percent of pixels match?
         ratio = (float(count) / height) * 100
         match[i] = ratio
 
+    # find the heighest matching ratio
+    # that shredded piece might be the neighbouring piece
     max_i = 0
     for i in range(1, len(match)):
         if match[i] > match[max_i]:
             max_i = i
-
+    # update the mapping table
     order[shred_index] = (max_i, match[max_i])
 
 ## find last shreded piece
@@ -58,7 +65,6 @@ min_i = 0
 for i in range(1, len(order)):
     if order[i][1] < order[min_i][1]:
         min_i = i
-
 ## update the ordering table
 order[min_i] = (LAST, 0)
 #print order
@@ -70,6 +76,7 @@ s2 = set()
 for v in order.values():
     s2.add(v[0])
 ds = s1 - s2
+## update the ordering table
 order[FIRST] = (ds.pop(), 0)
 
 ## generate the sorted sequence from the ordering table
@@ -94,7 +101,7 @@ for i in range(0, NUMBER_OF_COLUMNS):
 
 #print olist
 
-## start unchredding process
+## start unshredding process
 unshredded = Image.new("RGBA", image.size)
 for i in range(0, NUMBER_OF_COLUMNS):
     x1, y1 = shred_width * olist[i], 0

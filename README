@@ -12,6 +12,9 @@ unshredder.py - to generate the original image back from shredded image (Challen
 find_width.py - to calculate the width of the shredded piece (Bonus Challenge)
 TokyoPanorama.png         - Original image
 TokyoPanoramaShredded.png - Shredded image
+img[1-5].jpg  - few sample images on which this solution verfied.
+
+Disclaimer: I don't own any of the images present in this solution. These images are just input to my program.
 
         --swarup
 
